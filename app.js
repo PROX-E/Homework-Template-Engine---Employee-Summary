@@ -102,3 +102,23 @@ function initalize(){
       return printHTML(team);
     });
   }
+
+  function printHTML(team){
+    fs.writeFile("Team.html",team, (err) => {
+      if(err) {
+        throw err;
+      };
+      console.log("Your team has been constructed!");
+    });
+    open("Team.html");
+    };
+  
+  /* ==========================================================*/
+  //START OF APP SEQUENCE 
+  /* ==========================================================*/
+  initalize()
+  .then((answers)=>{
+    const manager = new Manager(answers.name, answers.id, answers.email,answers.officeNumber);
+    team.splice(team.length-1,0,manager.getHTML());
+    buildTeam();
+  });
